@@ -1,32 +1,36 @@
-# Arizran Tech — updated website
+# Arizran Tech — SEO service pages
 
-A static responsive site built with HTML, CSS and vanilla JavaScript.
+Ready-to-deploy static frontend for Cloudflare Workers Static Assets. Keeps Arizran's blue-and-white responsive design, light default theme, original homepage, official logo, original project screenshots, theme toggle, floating WhatsApp control, and fixed back-to-top button.
 
-## Files
-- `index.html` — content, official social profiles, accessible website sections, live project cards and fixed action buttons
-- `styles.css` — custom layout, responsive styles, dark/light themes and animations
-- `script.js` — menu, theme, interactive sections, portfolio filters, contact/WhatsApp functionality, scroll and back-to-top logic
-- `assets/` — **included** official logo (normal and dark-background versions), favicon and the four real website screenshots
+## New URLs
 
-## Run
-Extract the ZIP, and open `index.html` in a browser or run VS Code Live Server. Deploy the **entire directory**, including `assets`, to Cloudflare Pages, GitHub Pages, etc. There are no build steps.
+- `/services/` — all services overview
+- `/services/website-development/` — Website Development in Kerala
+- `/services/web-app-development/` — web applications & custom business tools
+- `/services/seo-services/` — SEO Services in Kerala
+- `/services/digital-marketing/` — Meta ads, posters and AI ad reels
 
-## Included official social channels
-- Instagram: https://www.instagram.com/arizrantech/
-- Facebook: https://www.facebook.com/profile.php?id=61595785553308
-- LinkedIn: https://www.linkedin.com/company/arizran-tech
+Every page has unique SEO title, description, canonical URL, Open Graph and Twitter preview metadata, visible copy, FAQ answers, Service / WebPage / BreadcrumbList JSON-LD. `sitemap.xml` now includes all six indexable pages (homepage + 5 service pages). The homepage service links and footer point to appropriate pages.
 
-## Project screenshots
-- `assets/greenpentair.webp`: Green Pentair
-- `assets/uritshop.webp`: UR IT Shop
-- `assets/bakedaddy.webp`: Bake Daddy Bakers
-- `assets/binarabgroups.webp`: Bin Arab Group
+## How to deploy
 
-The screenshots are compressed WebP copies of the originals supplied by the user. Project links open the live external sites.
+1. Back up your current GitHub repository.
+2. Copy the **contents** of this folder to the repository root (not the enclosing folder). Replace existing `index.html`, `script.js`, `styles.css`, `sitemap.xml`, `robots.txt`, and `README.md`. Keep the `assets/` directory, and add `service-pages.css`, `service-pages.js`, and the complete `services/` directory.
+3. From the repo folder run:
 
-## Contact and next steps
-The floating WhatsApp button and contact form use +91 70345 40528. The form composes a message in WhatsApp without storing visitors' form data on this site.
+   git add .
+   git commit -m "Add SEO-optimized service landing pages"
+   git push origin main
 
-The Arizran Tech site describes an **online-first digital solutions platform**, not a registered company with a physical office or an on-location video shoot operation. It offers websites, web apps, SEO, Meta ads, social media posters and AI-assisted advertising reels.
+4. Your connected Cloudflare Workers project should deploy automatically from `main`.
+5. Test `/services/`, `/services/website-development/` and all four detail pages in a real browser.
+6. Verify that each page is `200` and appears at its trailing-slash canonical path. Cloudflare Workers Static Assets defaults to `auto-trailing-slash` for directory index files, provided the Workers asset settings have not overridden it.
+7. Check `https://www.arizrantech.com/sitemap.xml`; use Google Search Console to inspect each service page if desired. You do not need to register a new property.
 
-Add a canonical tag and Open Graph URL once the official Arizran domain exists; neither has been invented.
+## Important
+
+- No backend, database or CMS required.
+- No invented testimonials, ad results, ranking claims, team members, or physical office.
+- The homepage still features four real website screenshots and the website development page reuses them.
+- This package uses the last shared SEO files as its starting point and includes code for the white-default-theme and back-to-top fixes. If you made further changes in your GitHub copy afterward, review the diff before overwriting it.
+- Google decides what gets indexed, and indexation or ranking is not guaranteed.

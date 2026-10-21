@@ -4,7 +4,7 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Theme: dark by default, with an optional light palette.
+// Light theme is the default; returning visitors may keep a prior dark-mode preference.
 const themeButton = $('#theme-toggle');
 try {
   const savedTheme = localStorage.getItem('arizran-theme');
@@ -180,28 +180,14 @@ contactForm?.addEventListener('submit', event => {
   link.click();
 });
 // Show the back-to-top shortcut once visitors have scrolled down.
-
 const backToTop = document.getElementById('back-to-top');
-
 function updateBackToTop() {
-  if (backToTop) {
-    backToTop.hidden = window.scrollY < 370;
-  }
+  if (backToTop) backToTop.hidden = window.scrollY < 370;
 }
-
-if (backToTop) {
-  backToTop.addEventListener('click', function (event) {
-    event.preventDefault();
-
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        ? 'auto'
-        : 'smooth'
-    });
-  });
-}
-
+backToTop?.addEventListener('click', event => {
+  event.preventDefault();
+  window.scrollTo({top: 0, left: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth'});
+});
 window.addEventListener('scroll', updateBackToTop, { passive: true });
 updateBackToTop();
+$('#year').textContent = String(new Date().getFullYear());
