@@ -152,6 +152,33 @@ $$('[data-filter]').forEach(button => {
   });
 });
 
+// GA4: measure WhatsApp link clicks without sending customer information.
+function trackWhatsAppClick(source, serviceName = '') {
+  if (typeof window.gtag !== 'function') return;
+  const parameters = {
+    link_location: source,
+    page_path: window.location.pathname
+  };
+  if (serviceName) parameters.service_name = serviceName;
+  window.gtag('event', 'whatsapp_click', parameters);
+}
+
+// Handles floating buttons, footer links and other regular WhatsApp links.
+document.addEventListener('click', event => {
+  const link = event.target.closest?.('a[href]');
+  if (!link) return;
+  let target;
+  try { target = new URL(link.href, window.location.href); } catch { return; }
+  if (!['wa.me', 'api.whatsapp.com', 'web.whatsapp.com'].includes(target.hostname)) return;
+
+  const source = link.classList.contains('floating-whatsapp') ? 'floating_button'
+    : link.closest('footer') ? 'footer_link'
+    : link.closest('#contact') ? 'contact_link'
+    : link.closest('.sp-cta') ? 'service_cta'
+    : 'other_whatsapp_link';
+  trackWhatsAppClick(source);
+});
+
 // Build an encoded WhatsApp message; form contents are not posted to a server.
 const contactForm = $('#contact-form');
 contactForm?.addEventListener('submit', event => {
@@ -177,6 +204,8 @@ contactForm?.addEventListener('submit', event => {
   link.href = url;
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
+  // This detached link does not bubble to the document click listener.
+  trackWhatsAppClick('enquiry_form', get('service'));
   link.click();
 });
 // Show the back-to-top shortcut once visitors have scrolled down.
