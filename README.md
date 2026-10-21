@@ -1,36 +1,31 @@
-# Arizran Tech — SEO service pages
+# Arizran Tech — Professional Typography & Dark Default
 
-Ready-to-deploy static frontend for Cloudflare Workers Static Assets. Keeps Arizran's blue-and-white responsive design, light default theme, original homepage, official logo, original project screenshots, theme toggle, floating WhatsApp control, and fixed back-to-top button.
+## What's changed
+- Default theme for first-time visitors: dark (`data-theme="dark"` on each of the 6 HTML pages).
+- Browser UI theme color: `#0a1020` initially, with the existing toggle updating it afterward.
+- Display/headings: **Manrope** (500–800).
+- Body/interface: **Inter** (400–800).
+- Small technical labels: **IBM Plex Mono** (unchanged).
+- More comfortable display letter spacing and line height in the CSS.
+- Existing theme toggle and saved visitor preference preserved.
+- Existing WhatsApp GA4 tracking JS preserved, and GA4 base Google tag included on all 6 HTML pages (`G-8PNWGNS64S`).
+- Existing content, service pages, portfolio images, sitemap and SEO metadata kept.
 
-## New URLs
+## Important: avoid overwriting unshared local edits
+This package was assembled from the latest complete website package from this conversation, plus the WhatsApp-tracking JavaScript update and the GA4 tag supplied in chat. If your local repository has *other* changes beyond those, back it up or merge the typography/theme changes rather than blindly replacing all files.
 
-- `/services/` — all services overview
-- `/services/website-development/` — Website Development in Kerala
-- `/services/web-app-development/` — web applications & custom business tools
-- `/services/seo-services/` — SEO Services in Kerala
-- `/services/digital-marketing/` — Meta ads, posters and AI ad reels
+## Minimal manual changes, if you prefer to edit the current live branch
+1. In every HTML page, replace `<html lang="en-IN" data-theme="light">` with `<html lang="en-IN" data-theme="dark">`.
+2. Replace initial `<meta name="theme-color" content="#f6f8fc">` with `<meta name="theme-color" content="#0a1020">`.
+3. Replace each Google Fonts stylesheet href with:
+   `https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap`
+4. Change `--font-display` to `'Manrope',system-ui,sans-serif` and `--font-body` to `'Inter',system-ui,sans-serif` in `styles.css`.
+5. Keep existing `script.js`, `service-pages.js`, Google tag, and Google Analytics tracking intact.
 
-Every page has unique SEO title, description, canonical URL, Open Graph and Twitter preview metadata, visible copy, FAQ answers, Service / WebPage / BreadcrumbList JSON-LD. `sitemap.xml` now includes all six indexable pages (homepage + 5 service pages). The homepage service links and footer point to appropriate pages.
+## Returning visitors and dark default
+The existing theme toggle saves user choice in `localStorage['arizran-theme']`. If your browser previously chose light, it will remain light on return visits. To test the new *first-visit* dark default, open in a private browser window or delete only that localStorage value in browser DevTools.
 
-## How to deploy
-
-1. Back up your current GitHub repository.
-2. Copy the **contents** of this folder to the repository root (not the enclosing folder). Replace existing `index.html`, `script.js`, `styles.css`, `sitemap.xml`, `robots.txt`, and `README.md`. Keep the `assets/` directory, and add `service-pages.css`, `service-pages.js`, and the complete `services/` directory.
-3. From the repo folder run:
-
-   git add .
-   git commit -m "Add SEO-optimized service landing pages"
-   git push origin main
-
-4. Your connected Cloudflare Workers project should deploy automatically from `main`.
-5. Test `/services/`, `/services/website-development/` and all four detail pages in a real browser.
-6. Verify that each page is `200` and appears at its trailing-slash canonical path. Cloudflare Workers Static Assets defaults to `auto-trailing-slash` for directory index files, provided the Workers asset settings have not overridden it.
-7. Check `https://www.arizrantech.com/sitemap.xml`; use Google Search Console to inspect each service page if desired. You do not need to register a new property.
-
-## Important
-
-- No backend, database or CMS required.
-- No invented testimonials, ad results, ranking claims, team members, or physical office.
-- The homepage still features four real website screenshots and the website development page reuses them.
-- This package uses the last shared SEO files as its starting point and includes code for the white-default-theme and back-to-top fixes. If you made further changes in your GitHub copy afterward, review the diff before overwriting it.
-- Google decides what gets indexed, and indexation or ranking is not guaranteed.
+## Deployment
+- Inspect locally and keep a Git backup/commit before replacing files.
+- Run `git add . && git commit -m "Refresh typography and set dark default" && git push origin main`.
+- Check all 6 pages; check theme toggle, GA4 Realtime and WhatsApp clicks after Cloudflare completes the deployment.

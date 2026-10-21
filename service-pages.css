@@ -8,7 +8,7 @@
 .sp-breadcrumb a:hover{color:#fff}
 .sp-breadcrumb [aria-current="page"]{color:#dcecff}
 .sp-hero-cols{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(28px,5vw,72px);align-items:center;min-height:450px}
-.sp-hero-content h1,.sp-overview-content h1{font-size:clamp(45px,5.4vw,75px);max-width:700px;line-height:1.04;letter-spacing:-.055em;margin:18px 0 27px}
+.sp-hero-content h1,.sp-overview-content h1{font-size:clamp(45px,5.4vw,75px);max-width:700px;line-height:1.07;letter-spacing:-.045em;margin:18px 0 27px}
 .sp-hero-content h1 em,.sp-overview-content h1 em,.sp-cta h2 em{font-style:normal;color:#8bd0ff}
 .sp-hero-content>p,.sp-overview-content>p{font-size:clamp(15px,1.4vw,17px);line-height:1.84;max-width:560px;color:#b6c8e0;margin:0 0 33px}
 .sp-pills{margin-top:37px;display:flex;flex-wrap:wrap;gap:9px}

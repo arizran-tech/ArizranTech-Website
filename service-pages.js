@@ -2,7 +2,7 @@
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-// First-time visitors see white; previously selected theme is remembered.
+// First-time visitors see dark; previously selected theme is remembered.
 try { const saved = localStorage.getItem('arizran-theme'); if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved; } catch {}
 const themeButton = $('#theme-toggle');
 function syncTheme() { const light = document.documentElement.dataset.theme !== 'dark'; themeButton?.setAttribute('aria-label', 'Switch to '+(light?'dark':'light')+' theme'); $('meta[name="theme-color"]')?.setAttribute('content',light?'#f6f8fc':'#0a1020'); }

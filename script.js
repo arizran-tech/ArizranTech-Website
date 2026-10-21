@@ -4,7 +4,7 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Light theme is the default; returning visitors may keep a prior dark-mode preference.
+// Dark theme is the default; returning visitors may keep their previously chosen light or dark preference.
 const themeButton = $('#theme-toggle');
 try {
   const savedTheme = localStorage.getItem('arizran-theme');
