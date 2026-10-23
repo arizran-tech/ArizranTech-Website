@@ -64,21 +64,24 @@ if (!prefersReducedMotion && 'IntersectionObserver' in window) {
   $$('.reveal').forEach(el => observer.observe(el));
 }
 
-// Subtle desktop parallax for the hero cards.
-const heroVisual = $('#hero-visual');
-if (heroVisual && !prefersReducedMotion && window.matchMedia('(pointer: fine)').matches) {
-  heroVisual.addEventListener('pointermove', event => {
-    const rect = heroVisual.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    $$('.float-card', heroVisual).forEach(el => {
-      const amount = Number(el.dataset.depth) || 10;
-      el.style.translate = `${(-x * amount).toFixed(1)}px ${(-y * amount).toFixed(1)}px`;
-    });
-  });
-  heroVisual.addEventListener('pointerleave', () => {
-    $$('.float-card', heroVisual).forEach(el => { el.style.translate = ''; });
-  });
+
+// Type the same headline once in the desktop and mobile previews.
+// Without JavaScript, the entire headline stays readable.
+if (!prefersReducedMotion) {
+  const typedPreviews = $$('.hs-typed');
+  const phrase = 'mornings.';
+  typedPreviews.forEach(el => { el.textContent = ''; el.classList.add('is-typing'); });
+  let typedIndex = 0;
+  function revealNextCharacter() {
+    typedIndex += 1;
+    typedPreviews.forEach(el => { el.textContent = phrase.slice(0, typedIndex); });
+    if (typedIndex < phrase.length) {
+      window.setTimeout(revealNextCharacter, 90);
+    } else {
+      window.setTimeout(() => typedPreviews.forEach(el => el.classList.remove('is-typing')), 450);
+    }
+  }
+  window.setTimeout(revealNextCharacter, 380);
 }
 
 // Before / After – only one panel visible at a time.
@@ -95,20 +98,6 @@ $$('[data-state]', beforeAfter).forEach(button => {
   });
 });
 
-// Digital-creative preview; all three formats are rendered with CSS, not claimed client work.
-const creativeLabels = { poster: '01 — POSTERS', reel: '02 — AI REELS', campaign: '03 — META AD CREATIVE' };
-$$('[data-creative]').forEach(button => {
-  button.addEventListener('click', () => {
-    const choice = button.dataset.creative;
-    $$('[data-creative]').forEach(tab => {
-      const active = tab === button;
-      tab.classList.toggle('selected', active);
-      tab.setAttribute('aria-pressed', String(active));
-    });
-    $$('[data-scene]').forEach(scene => { scene.hidden = scene.dataset.scene !== choice; });
-    $('#preview-index').textContent = creativeLabels[choice];
-  });
-});
 
 // Interactive process overview. No camera, filming or in-house production stages.
 const processSteps = [

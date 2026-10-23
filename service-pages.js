@@ -13,7 +13,7 @@ function closeMenu(){nav?.classList.remove('open');menu?.setAttribute('aria-expa
 menu?.addEventListener('click',()=>{let open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close navigation':'Open navigation')});
 $$('#nav a').forEach(a=>a.addEventListener('click',closeMenu));
 window.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
-window.addEventListener('resize',()=>{if(innerWidth>940)closeMenu()});
+window.addEventListener('resize',()=>{if(innerWidth>1150)closeMenu()});
 const progress=$('#scroll-progress'),back=$('#back-to-top');
 function update(){let max=document.documentElement.scrollHeight-innerHeight;if(progress)progress.style.transform='scaleX('+(max>0?Math.min(1,Math.max(0,scrollY/max)):0)+')';if(back)back.hidden=scrollY<370}
 window.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
