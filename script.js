@@ -7,7 +7,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 // Dark theme is the default; returning visitors may keep their previously chosen light or dark preference.
 const themeButton = $('#theme-toggle');
 try {
-  const savedTheme = localStorage.getItem('arizran-theme');
+  const savedTheme = localStorage.getItem('arizran-theme-v2');
   if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
 } catch { /* Browser storage is optional. */ }
 function syncThemeLabel() {
@@ -20,7 +20,7 @@ syncThemeLabel();
 themeButton?.addEventListener('click', () => {
   const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
   document.documentElement.dataset.theme = next;
-  try { localStorage.setItem('arizran-theme', next); } catch { /* Optional. */ }
+  try { localStorage.setItem('arizran-theme-v2', next); } catch { /* Optional. */ }
   syncThemeLabel();
 });
 

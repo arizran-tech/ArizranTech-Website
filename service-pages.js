@@ -3,11 +3,11 @@ const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 // First-time visitors see dark; previously selected theme is remembered.
-try { const saved = localStorage.getItem('arizran-theme'); if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved; } catch {}
+try { const saved = localStorage.getItem('arizran-theme-v2'); if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved; } catch {}
 const themeButton = $('#theme-toggle');
 function syncTheme() { const light = document.documentElement.dataset.theme !== 'dark'; themeButton?.setAttribute('aria-label', 'Switch to '+(light?'dark':'light')+' theme'); $('meta[name="theme-color"]')?.setAttribute('content',light?'#f6f8fc':'#0a1020'); }
 syncTheme();
-themeButton?.addEventListener('click',()=>{const next=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=next;try{localStorage.setItem('arizran-theme',next)}catch{}syncTheme()});
+themeButton?.addEventListener('click',()=>{const next=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=next;try{localStorage.setItem('arizran-theme-v2',next)}catch{}syncTheme()});
 const nav=$('#nav'),menu=$('#menu-toggle');
 function closeMenu(){nav?.classList.remove('open');menu?.setAttribute('aria-expanded','false');menu?.setAttribute('aria-label','Open navigation')}
 menu?.addEventListener('click',()=>{let open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close navigation':'Open navigation')});
